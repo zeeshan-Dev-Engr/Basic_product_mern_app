@@ -5,12 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    chunkSizeWarningLimit: 1000,
-    outDir: 'dist',
-    emptyOutDir: true
+    outDir: 'dist'
   },
   server: {
-    port: 3001,
     proxy: {
       '/api': {
         target: process.env.VITE_API_URL || 'http://localhost:5001',
