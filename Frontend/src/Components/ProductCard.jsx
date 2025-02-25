@@ -35,7 +35,6 @@ const ProductCard = ({ imageUrl, name, price, pid }) => {
         w="100%"
         borderRadius="lg" 
         overflow="hidden" 
-        margin={8}
         boxShadow="md"
         transition="all 0.3s ease-in-out"
         _hover={{
