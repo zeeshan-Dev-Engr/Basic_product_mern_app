@@ -8,11 +8,17 @@ export default defineConfig({
     outDir: 'dist'
   },
   server: {
+    port: 5173,
     proxy: {
       '/api': {
-        target: process.env.VITE_API_URL || 'http://localhost:5001',
+        target: 'http://localhost:5001',
         changeOrigin: true,
-        secure: false
+        secure: false,
+        configure: (proxy, _options) => {
+          proxy.on('error', (err, _req, _res) => {
+            console.log('proxy error', err);
+          });
+        }
       }
     }
   }

@@ -25,12 +25,14 @@ export const useStore = create((set) => ({
             });
 
             if (!res.ok) {
-                const errorData = await res.text();
-                console.error("Error response:", errorData);
-                return {
-                    success: false, 
-                    Message: errorData || 'Failed to create product'
-                };
+                const errorText = await res.text();
+                console.error("Error response:", errorText);
+                try {
+                    const errorData = JSON.parse(errorText);
+                    return {success: false, Message: errorData.message || 'Failed to create product'};
+                } catch {
+                    return {success: false, Message: errorText || 'Failed to create product'};
+                }
             }
 
             const data = await res.json();
@@ -45,9 +47,22 @@ export const useStore = create((set) => ({
     },
    
     fetchProducts: async () => {
-        const res = await fetch('/api/products');
-        const data = await res.json();
-        set({ products: data.products });
+        try {
+            const res = await fetch('/api/products');
+            if (!res.ok) {
+                const errorText = await res.text();
+                console.error("Error fetching products:", errorText);
+                return;
+            }
+            const data = await res.json();
+            if (data.success) {
+                set({ products: data.products });
+            } else {
+                console.error("Failed to fetch products:", data.message);
+            }
+        } catch (error) {
+            console.error("Error fetching products:", error);
+        }
     },
 
     DeleteProduct: async (pid) => {
