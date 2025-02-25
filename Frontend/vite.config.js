@@ -6,12 +6,14 @@ export default defineConfig({
   plugins: [react()],
   build: {
     chunkSizeWarningLimit: 1000,
+    outDir: 'dist',
+    emptyOutDir: true
   },
   server: {
     port: 3001,
     proxy: {
       '/api': {
-        target: 'http://localhost:5001',
+        target: '/api',
         changeOrigin: true,
         secure: false,
         ws: true
