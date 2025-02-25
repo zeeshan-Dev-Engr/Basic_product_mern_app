@@ -4,8 +4,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "set NODE_ENV=development&& nodemon Backend/server.js",
-    "start": "set NODE_ENV=production&& node Backend/server.js",
-    "build": "cd Frontend && npm install && npm run build"
+    "start": "node Backend/server.js",
+    "build": "cd Frontend && npm install && npm run build",
+    "vercel-build": "npm run build"
   },
   "type": "module",
   "keywords": [],

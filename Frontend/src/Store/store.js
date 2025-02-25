@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { delete_products } from '../../../Backend/controller/products_controller';
 
 export const useStore = create((set) => ({
     products: [],

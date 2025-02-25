@@ -1,21 +1,23 @@
 {
   "version": 2,
-  "buildCommand": "cd Frontend && npm install && npm run build",
-  "outputDirectory": "Frontend/dist",
   "builds": [
     {
       "src": "Backend/server.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "Frontend/dist/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "Backend/server.js"
+      "dest": "/Backend/server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "Frontend/dist/$1"
+      "dest": "/Frontend/dist/$1"
     }
   ]
 } 
