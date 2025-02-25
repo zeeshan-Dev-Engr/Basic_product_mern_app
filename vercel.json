@@ -1,17 +1,26 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "Frontend/dist",
   "builds": [
     {
       "src": "Backend/server.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "buildCommand": "npm run build",
+        "outputDirectory": "Frontend/dist"
+      }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "/Backend/server.js"
+    },
+    {
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
